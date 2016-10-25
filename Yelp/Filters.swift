@@ -45,6 +45,29 @@ class Filters {
         switchStatesCategory = Array(repeating: false, count: categories.count)
     }
     
+    func update(_ search: Search) {
+        print(#function)
+        print("update")
+        switchStatesDeal![0] = search.deals
+        /*
+        search.radius
+        
+        search.term
+        search.sort
+        
+        for i in 0..<switchStatesDistance!.count {
+            switchStatesDistance?[i] = filters.switchStatesDistance![i]
+        }
+        
+        for i in 0..<switchStatesSort!.count {
+            switchStatesDistance?[i] = filters.switchStatesDistance![i]
+        }
+        
+        for i in 0..<switchStatesCategory!.count {
+            switchStatesCategory?[i] = filters.switchStatesCategory![i]
+        }*/
+    }
+    
     func update(_ filters: Filters) {
         switchStatesDeal?[0] = filters.switchStatesDeal![0]
         
@@ -59,7 +82,6 @@ class Filters {
         for i in 0..<switchStatesCategory!.count {
             switchStatesCategory?[i] = filters.switchStatesCategory![i]
         }
-        
     }
     
     func toSearch() -> Search {

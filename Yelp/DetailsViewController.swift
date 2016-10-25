@@ -14,9 +14,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var reviewsLabel: UILabel!
-    
+    @IBOutlet weak var addressLabel: UILabel!   
+    @IBOutlet weak var mapView: MKMapView!
     var business:Business?
     
     override func viewDidLoad() {
@@ -27,6 +26,16 @@ class DetailsViewController: UIViewController {
         addressLabel.text = business?.address
         imageView.setImageWith((business?.imageURL)!)
         phoneLabel.text = business?.phone
+
+        let location = CLLocation(latitude: (business?.latitude)!, longitude: (business?.longitude)!)
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        annotation.title = "An annotation!"
+        mapView.addAnnotation(annotation)
         
         // TODO
         //reviewsLabel.text = business?.reviews

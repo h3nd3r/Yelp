@@ -27,7 +27,6 @@ class FiltersViewController: UIViewController {
         super.viewDidLoad()
         
         currentFilters = currentFilters ?? Filters()
-        initFilters()
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
@@ -38,10 +37,11 @@ class FiltersViewController: UIViewController {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
     }
 
-    private func initFilters() {
-        //autoRefreshSwitch?.on = currentPrefs.autoRefresh
-        //soundsSwitch?.on = currentPrefs.playSounds
-        //showPhotosSwitch?.on = currentPrefs.showPhotos
+    func initFilters(search: Search) {
+        print(#function)
+        currentFilters = currentFilters ?? Filters()
+        currentFilters.update(search)
+        //tableView.reloadData()
     }
 
     func filtersFromTableData() -> Filters {

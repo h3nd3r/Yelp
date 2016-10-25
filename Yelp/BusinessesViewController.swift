@@ -73,7 +73,7 @@ extension BusinessesViewController: UISearchBarDelegate {
         // we should escape searchBar.text
         search.term = searchBar.text!
         
-        Business.searchWithTerm(term: search.term, sort: search.sort, categories: search.categories, deals: search.deals)
+        Business.searchWithTerm(term: search.term, sort: search.sort, categories: search.categories, deals: search.deals, radius: search.radius)
             { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
@@ -91,7 +91,7 @@ extension BusinessesViewController: SearchDelegate/*, FiltersViewControllerDeleg
         // TODO: add in radius
         print("New search terms: \(search)")
         
-        Business.searchWithTerm(term: search.term, sort: filtersSearch.sort, categories: filtersSearch.categories, deals: filtersSearch.deals) { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: search.term, sort: filtersSearch.sort, categories: filtersSearch.categories, deals: filtersSearch.deals, radius: filtersSearch.radius) { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
             for business in businesses! {
@@ -99,16 +99,6 @@ extension BusinessesViewController: SearchDelegate/*, FiltersViewControllerDeleg
              print(business.address!)
              }
         }
-    }
-    func filtersViewController(/*filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]*/) {
-        print("hello world!")/*
-         var categories = filters["categories"] as? [String]
-         
-         Business.searchWithTerm(term: "Restaurants", sort: nil, categories: categories, deals: nil)
-         { (businesses: [Business]?, error: Error?) -> Void in
-         self.businesses = businesses
-         self.tableView.reloadData()
-         }*/
     }
 }
 
@@ -138,10 +128,9 @@ extension BusinessesViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             let navigationController = segue.destination as! UINavigationController
             let filtersViewController = navigationController.topViewController as! FiltersViewController
-            //filtersViewController.search = filters
-            //filtersViewController.delegate2 = self
+            
+            filtersViewController.initFilters(search: search)
             filtersViewController.delegate = self
-            //filtersViewController.currentFilters = self.filters
             
         }
     }
